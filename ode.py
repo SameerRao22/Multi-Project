@@ -1,11 +1,11 @@
 import math
 
 '''
-3x^2y
+tan(y) + 1
 '''
 
 def f(x,y):
-    return 3*math.pow(x,2)*y
+    return math.tan(y) + 1
 
 
 '''
@@ -42,4 +42,4 @@ def rk4(x0, y0, h, s):
     return x, y
 
 if __name__ == '__main__':
-    rk4(1, 2, 0.1, 1)
+    rk4(1, 1, 0.0250, 4)
