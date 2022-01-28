@@ -1,8 +1,12 @@
 import math
 from fractions import Fraction
+import matplotlib.pyplot as plt
 
 def f(x,y):
-    return x+y
+    return x*y
+
+def o(x):
+    return math.pow(math.e, math.pow(x,2)/2)
 
 def t(x,y,h,b,vals):
     s = 0
@@ -22,11 +26,12 @@ def approx(x0, y0, xf, s, b, vals):
     x = x0
     y = y0
     h = (xf-x0)/float(s)
+    p = []
     for i in range(s):
         y += t(x, y, h, b, vals) 
         x += h
-        p = (x, y)
-    return x, y
+        p.append((x, y))
+    return p
 
 def tableau(name):
     with open(name, "r") as f:
@@ -49,10 +54,26 @@ if __name__ == '__main__':
     if not flag:
         print('invalid tableau')
     else:
-        print(approx(1,1,2,100,b,vals))
+        p1 = approx(0,1,1,100,b,vals)
 
     b, vals, flag = tableau('tableaus/euler.txt')
     if not flag:
         print('invalid tableau')
     else:
-        print(approx(1,1,2,100,b,vals))
+        p2 = approx(0,1,1,100,b,vals)
+
+    h = (1)/float(100)
+    px = [i[0] for i in p1]
+    py = [j[1] for j in p1]
+
+
+    y = [o(g) for g in px]
+
+    plt.plot(px, py, label = 'approx.')
+    plt.plot(px, y, label = 'legit')
+
+    plt.xlabel('x - axis')
+    plt.ylabel('y - axis')
+    plt.title('Bench press mark')
+    plt.legend()
+    plt.show()

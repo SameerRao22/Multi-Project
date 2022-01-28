@@ -1,4 +1,4 @@
-	ODE:
+ODE:
 
 dy/dx = f(x,y)
 
