@@ -2,7 +2,7 @@ import math
 from fractions import Fraction
 
 def f(x,y):
-    return math.tan(y) + 1
+    return x+y
 
 def t(x,y,h,b,vals):
     s = 0
@@ -18,14 +18,14 @@ def t(x,y,h,b,vals):
         s += f(xn, yn)*b[i]
     return h*s
 
-def approx(x0, y0, h, s, b, vals):
+def approx(x0, y0, xf, s, b, vals):
     x = x0
     y = y0
+    h = (xf-x0)/float(s)
     for i in range(s):
         y += t(x, y, h, b, vals) 
         x += h
         p = (x, y)
-        print(p)
     return x, y
 
 def tableau(name):
@@ -45,8 +45,14 @@ def tableau(name):
 
 
 if __name__ == '__main__':
-    b, vals, flag = tableau('tab1.txt')
+    b, vals, flag = tableau('tableaus/rk4.txt')
     if not flag:
         print('invalid tableau')
     else:
-        approx(1,1,0.0250,4,b,vals)
+        print(approx(1,1,2,100,b,vals))
+
+    b, vals, flag = tableau('tableaus/euler.txt')
+    if not flag:
+        print('invalid tableau')
+    else:
+        print(approx(1,1,2,100,b,vals))
